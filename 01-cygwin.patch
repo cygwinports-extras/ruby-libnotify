@@ -1,0 +1,54 @@
+--- origsrc/libnotify-0.7.4/lib/libnotify/ffi.rb	2012-08-23 03:42:58.047031600 -0500
++++ src/libnotify-0.7.4/lib/libnotify/ffi.rb	2012-08-23 03:53:39.934745400 -0500
+@@ -12,7 +12,7 @@ module Libnotify
+     end
+ 
+     def self.load_libs
+-      libnotify_libs = %w[libnotify libnotify.so.4 libnotify.so.3 libnotify.so.2 libnotify.so.1 libnotify.so]
++      libnotify_libs = %w[cygnotify-4.dll]
+ 
+       # Workaround for "half-linked" libnotify.so. Does not work on rubinius (no ffi_lib_flags there)!
+       # See: https://bugzilla.redhat.com/show_bug.cgi?id=626852
+@@ -20,8 +20,8 @@ module Libnotify
+       ffi_lib libnotify_libs
+ 
+     rescue LoadError
+-      ffi_lib %w[libgtk-x11-2.0 libgtk-x11-2.0.so.0 libgtk-x11-2.0.so libgtk-3 libgtk-3.so.0 libgtk-3.so],
+-              %w[libgtkmm-2.4 libgtkmm-2.4.so.1 libgtkmm-2.4.so libgtkmm-3.0 libgtkmm-3.0.so.1 libgtkmm-3.0.so],
++      ffi_lib %w[cyggtk-x11-2.0-0.dll cyggtk-3-0.dll],
++              %w[cyggtkmm-2.4-1.dll cyggtkmm-3.0-1.dll],
+               libnotify_libs
+     end
+ 
+--- origsrc/libnotify-0.7.4/libnotify.gemspec	2012-08-23 03:42:58.897080200 -0500
++++ src/libnotify-0.7.4/libnotify.gemspec	2012-08-23 03:58:57.003880700 -0500
+@@ -18,18 +18,18 @@ Gem::Specification.new do |s|
+     s.specification_version = 3
+ 
+     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+-      s.add_runtime_dependency(%q<ffi>, ["~> 1.0.11"])
++      s.add_runtime_dependency(%q<ffi>, ["~> 1.1.0"])
+       s.add_development_dependency(%q<yard>, ["~> 0.8.2"])
+       s.add_development_dependency(%q<minitest>, ["~> 3.1.0"])
+       s.add_development_dependency(%q<minitest-libnotify>, ["~> 0.2.2"])
+     else
+-      s.add_dependency(%q<ffi>, ["~> 1.0.11"])
++      s.add_dependency(%q<ffi>, ["~> 1.1.0"])
+       s.add_dependency(%q<yard>, ["~> 0.8.2"])
+       s.add_dependency(%q<minitest>, ["~> 3.1.0"])
+       s.add_dependency(%q<minitest-libnotify>, ["~> 0.2.2"])
+     end
+   else
+-    s.add_dependency(%q<ffi>, ["~> 1.0.11"])
++    s.add_dependency(%q<ffi>, ["~> 1.1.0"])
+     s.add_dependency(%q<yard>, ["~> 0.8.2"])
+     s.add_dependency(%q<minitest>, ["~> 3.1.0"])
+     s.add_dependency(%q<minitest-libnotify>, ["~> 0.2.2"])
+--- origsrc/libnotify-0.7.4/test/helper.rb	2012-08-23 03:42:58.080033400 -0500
++++ src/libnotify-0.7.4/test/helper.rb	2012-08-23 03:44:14.518405500 -0500
+@@ -1,5 +1,4 @@
+ require 'rubygems'
+-require 'bundler/setup'
+ require 'minitest/autorun'
+ require 'minitest/libnotify'
+ 
