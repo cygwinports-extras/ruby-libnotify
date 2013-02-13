@@ -1,0 +1,11 @@
+inherit rubygem
+
+NAME="ruby-libnotify"
+VERSION=0.8.0
+RELEASE=1
+CATEGORY="Ruby"
+SUMMARY="Ruby libnotify bindings"
+DESCRIPTION="Ruby bindings for libnotify using FFI"
+REQUIRES="libnotify4"
+
+PATCH_URI="01-cygwin.patch"
